@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cinematography Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;700&amp;display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --color-bg: #ffffff;
+      --color-text: #6b7280;
+      --color-text-dark: #111827;
+      --color-primary: #000000;
+      --radius: 0.75rem;
+      --shadow-light: rgba(0,0,0,0.05);
+      --shadow-medium: rgba(0,0,0,0.1);
+      --transition-speed: 0.3s;
+    }
+
+    /* Reset & base */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+      font-weight: 300;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    a:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    /* Sticky header */
+    header {
+      position: sticky;
+      top: 0;
+      background-color: var(--color-bg);
+      box-shadow: 0 2px 4px var(--shadow-light);
+      z-index: 100;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 64px;
+      padding: 0 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--color-primary);
+      user-select: none;
+      letter-spacing: 0.05em;
+      flex-shrink: 0;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      font-weight: 600;
+      font-size: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      position: relative;
+      padding: 0.5rem 0;
+      color: var(--color-text-dark);
+      transition: color var(--transition-speed);
+      user-select: none;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 2px;
+      background: var(--color-primary);
+      transition: width var(--transition-speed);
+      border-radius: 1px;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: var(--color-primary);
+    }
+    .nav-links a:hover::after,
+    .nav-links a:focus-visible::after {
+      width: 100%;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 6rem 1rem 5rem;
+      background: linear-gradient(135deg, #f5f7fa 0%, #eaeefb 100%);
+      user-select: none;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      color: var(--color-primary);
+      margin: 0 0 1rem;
+      letter-spacing: 0.02em;
+      line-height: 1.1;
+    }
+
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--color-text);
+      margin-bottom: 2.5rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background-color: var(--color-primary);
+      color: var(--color-bg);
+      font-weight: 700;
+      font-size: 1.125rem;
+      padding: 0.75rem 2rem;
+      border-radius: var(--radius);
+      box-shadow: 0 4px 8px var(--shadow-medium);
+      border: none;
+      cursor: pointer;
+      transition: background-color var(--transition-speed), transform var(--transition-speed);
+      text-decoration: none;
+      user-select: none;
+    }
+
+    .btn-primary:hover,
+    .btn-primary:focus-visible {
+      background-color: #222222;
+      transform: scale(1.05);
+      outline: none;
+    }
+
+    /* Portfolio Section */
+    section.portfolio {
+      padding: 4rem 1rem 6rem;
+    }
+
+    section.portfolio h2 {
+      font-weight: 700;
+      font-size: 2rem;
+      color: var(--color-primary);
+      text-align: center;
+      margin-bottom: 3rem;
+      user-select: none;
+    }
+
+    .grid-portfolio {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+      gap: 2rem;
+    }
+
+    .card-portfolio {
+      background: var(--color-bg);
+      border-radius: var(--radius);
+      box-shadow: 0 2px 6px var(--shadow-light);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow var(--transition-speed), transform var(--transition-speed);
+      cursor: pointer;
+    }
+
+    .card-portfolio:hover,
+    .card-portfolio:focus-within {
+      box-shadow: 0 8px 20px var(--shadow-medium);
+      transform: translateY(-4px);
+      outline: none;
+    }
+
+    .card-portfolio img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      flex-shrink: 0;
+      background-color: #ddd;
+      user-select: none;
+    }
+
+    .card-content {
+      padding: 1rem 1.25rem 1.5rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card-content h3 {
+      font-weight: 600;
+      font-size: 1.25rem;
+      color: var(--color-primary);
+      margin: 0 0 0.5rem;
+      user-select: text;
+    }
+
+    .card-content p {
+      font-size: 0.95rem;
+      color: var(--color-text);
+      flex-grow: 1;
+      margin: 0;
+      user-select: text;
+    }
+
+    /* About Section */
+    section.about {
+      background: linear-gradient(135deg, #f5f7fa 0%, #eaeefb 100%);
+      padding: 6rem 1rem 6rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    section.about h2 {
+      font-weight: 700;
+      font-size: 2rem;
+      color: var(--color-primary);
+      margin-bottom: 2.25rem;
+      user-select: none;
+    }
+
+    .about-content {
+      display: flex;
+      flex-direction: column;
+      max-width: 900px;
+      gap: 2rem;
+      align-items: center;
+      padding: 0 1rem;
+    }
+
+    .about-content img {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 4px 12px var(--shadow-medium);
+      user-select: none;
+      flex-shrink: 0;
+    }
+
+    .about-text {
+      font-size: 1.1rem;
+      color: var(--color-text);
+      max-width: 600px;
+      user-select: text;
+      margin: 0;
+    }
+
+    /* Contact Section */
+    section.contact {
+      padding: 4rem 1rem 6rem;
+    }
+
+    section.contact h2 {
+      font-weight: 700;
+      font-size: 2rem;
+      color: var(--color-primary);
+      text-align: center;
+      margin-bottom: 3rem;
+      user-select: none;
+    }
+
+    form.contact-form {
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      padding: 0 1rem;
+    }
+
+    label {
+      position: relative;
+      font-size: 0.9rem;
+      color: var(--color-text-dark);
+      font-weight: 600;
+      user-select: none;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea {
+      width: 100%;
+      padding: 0.9rem 1rem 0.5rem;
+      border: 1.5px solid #cbd5e1;
+      border-radius: var(--radius);
+      background: transparent;
+      font-size: 1rem;
+      font-family: inherit;
+      color: var(--color-text-dark);
+      transition: border-color var(--transition-speed);
+      resize: vertical;
+      min-height: 3rem;
+    }
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    textarea:focus {
+      border-color: var(--color-primary);
+      outline: none;
+      box-shadow: 0 0 0 3px rgb(0 0 0 / 0.1);
+    }
+
+    /* Floating labels */
+    input:focus + span,
+    input:not(:placeholder-shown) + span,
+    textarea:focus + span,
+    textarea:not(:placeholder-shown) + span {
+      transform: translateY(-135%);
+      font-size: 0.75rem;
+      color: var(--color-primary);
+      font-weight: 700;
+    }
+
+    /* label text container */
+    .form-field {
+      position: relative;
+    }
+    .form-field span {
+      position: absolute;
+      top: 0.9rem;
+      left: 1rem;
+      pointer-events: none;
+      color: var(--color-text);
+      font-weight: 500;
+      background: var(--color-bg);
+      padding: 0 0.25rem;
+      border-radius: var(--radius);
+      transition: all 0.3s ease;
+      user-select: none;
+    }
+
+    button[type="submit"] {
+      background-color: var(--color-primary);
+      border: none;
+      color: var(--color-bg);
+      font-weight: 700;
+      font-size: 1.125rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius);
+      cursor: pointer;
+      box-shadow: 0 4px 8px var(--shadow-medium);
+      transition: background-color var(--transition-speed), transform var(--transition-speed);
+      user-select: none;
+    }
+    button[type="submit"]:hover,
+    button[type="submit"]:focus-visible {
+      background-color: #222222;
+      outline: none;
+      transform: scale(1.03);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.85rem;
+      color: var(--color-text);
+      user-select: none;
+      border-top: 1px solid #e5e7eb;
+      background: #fafafa;
+    }
+
+    /* Responsive - Small devices */
+    @media (max-width: 900px) {
+      .about-content {
+        flex-direction: column;
+      }
+      .about-text {
+        max-width: 100%;
+      }
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        height: auto;
+        padding: 0.5rem 1rem;
+        justify-content: center;
+        gap: 0.75rem;
+      }
+      .nav-links {
+        gap: 1rem;
+        justify-content: center;
+        width: 100%;
+        order: 1;
+      }
+      .logo {
+        flex-grow: 1;
+        text-align: center;
+        order: 0;
+        font-size: 1.375rem;
+      }
+
+      .hero {
+        padding: 4rem 1rem 3rem;
+      }
+      .hero h1 {
+        font-size: 2.25rem;
+      }
+      .hero p {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      section.portfolio {
+        padding: 3rem 1rem 4rem;
+      }
+      section.portfolio h2 {
+        font-size: 1.75rem;
+        margin-bottom: 2rem;
+      }
+      .grid-portfolio {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      .card-portfolio img {
+        height: 160px;
+      }
+
+      section.about {
+        padding: 4rem 1rem 4rem;
+      }
+      section.about h2 {
+        font-size: 1.75rem;
+        margin-bottom: 1.75rem;
+      }
+      .about-content img {
+        width: 140px;
+        height: 140px;
+      }
+      .about-text {
+        font-size: 1rem;
+        padding: 0 1rem;
+      }
+
+      section.contact {
+        padding: 3rem 1rem 4rem;
+      }
+      section.contact h2 {
+        font-size: 1.75rem;
+        margin-bottom: 2rem;
+      }
+      form.contact-form {
+        max-width: 100%;
+        padding: 0;
+      }
+
+      button[type="submit"] {
+        width: 100%;
+        font-size: 1rem;
+        padding: 0.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav role="navigation" aria-label="Primary Navigation">
+      <a href="#hero" class="logo" tabindex="0">SineSMANTU DEMO TEST</a>
+      <div class="nav-links">
+        <a href="#portfolio" tabindex="0">Portfolio</a>
+        <a href="#about" tabindex="0">About Me</a>
+        <a href="#contact" tabindex="0">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="hero" role="banner" aria-label="Hero section introduction">
+      <h1>Cinematography Portfolio</h1>
+      <p>Capturing stories, one frame at a time. Explore my works showcasing artful cinematography and visual storytelling.</p>
+      <a href="#portfolio" class="btn-primary" role="button">View My Work</a>
+    </section>
+
+    <section class="portfolio container" id="portfolio" aria-labelledby="portfolio-heading">
+      <h2 id="portfolio-heading">My Works</h2>
+      <div class="grid-portfolio" role="list">
+        <article class="card-portfolio" role="listitem" tabindex="0" aria-label="Project: Urban Nights">
+          <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&amp;fit=crop&amp;w=400&amp;q=80" alt="Nighttime cityscape with vibrant urban lights" loading="lazy" />
+          <div class="card-content">
+            <h3>Urban Nights</h3>
+            <p>A mesmerizing journey through the city's nocturnal lights and shadows, blending sharp visuals with dynamic motion.</p>
+          </div>
+        </article>
+        <article class="card-portfolio" role="listitem" tabindex="0" aria-label="Project: Nature’s Whisper">
+          <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&amp;fit=crop&amp;w=400&amp;q=80" alt="Sunlight filtered through dense forest leaves" loading="lazy" />
+          <div class="card-content">
+            <h3>Nature’s Whisper</h3>
+            <p>Documenting serene landscapes and the subtle interaction between light and nature’s tranquility.</p>
+          </div>
+        </article>
+        <article class="card-portfolio" role="listitem" tabindex="0" aria-label="Project: Motion in Color">
+          <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&amp;fit=crop&amp;w=400&amp;q=80" alt="Blurred colorful motion art" loading="lazy" />
+          <div class="card-content">
+            <h3>Motion in Color</h3>
+            <p>A creative exploration of movement and vibrant palettes captured through experimental techniques.</p>
+          </div>
+        </article>
+        <article class="card-portfolio" role="listitem" tabindex="0" aria-label="Project: Silent Shadows">
+          <img src="https://images.unsplash.com/photo-1497215842964-222b430dc094?auto=format&amp;fit=crop&amp;w=400&amp;q=80" alt="Shadowy figure in backlit mist" loading="lazy" />
+          <div class="card-content">
+            <h3>Silent Shadows</h3>
+            <p>Playing with light and darkness to reveal enigmatic shapes and hidden stories behind the veil.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="about" id="about" aria-labelledby="about-heading">
+      <h2 id="about-heading">About Me</h2>
+      <div class="about-content">
+        <img src="logo.jpg" alt="Portrait of cinematographer" />
+        <p class="about-text">Apakah kamu suka mengambil foto random? Sering ngedit video sampai lupa waktu? Atau punya mimpi bikin film sekeren Marvel?
+            Nah, eskul Sinematografi di SMAN 7 Manado mungkin adalah tempat yang tepat buat kamu!
+        </p>
+        <p class="about-text">
+            Ekstrakulikuler Sinematografi di SMAN 7 Manado adalah wadah bagi siswa yang memiliki minat dan bakat di bidang Fotografi, Videografi, Editing, dan Perfilman. Di sini, siswa belajar mulai dari mengatur pencahayaan dan pengambilan gambar,  proses penyuntingan video yang kreatif dan profesional, hingga menulis naskah. Jadi, kalau kamu punya jiwa seniman visual, editor yang perfeksionis, atau calon Youtuber masa depan. Gabung aja ke Sinematografi SMAN 7 Manado. Di sini, kita nggak cuma bikin film, tapi juga bikin kenangan seru bareng!!
+        </p>
+      </div>
+    </section>
+
+    <section class="contact container" id="contact" aria-labelledby="contact-heading">
+      <h2 id="contact-heading">Contact</h2>
+      <form class="contact-form" id="contact-form" novalidate>
+        <div class="form-field">
+          <input type="text" id="name" name="name" placeholder=" " required aria-required="true" minlength="2" autocomplete="name" />
+          <span>Name</span>
+        </div>
+        <div class="form-field">
+          <input type="email" id="email" name="email" placeholder=" " required aria-required="true" autocomplete="email" />
+          <span>Email</span>
+        </div>
+        <div class="form-field">
+          <textarea id="message" name="message" placeholder=" " rows="4" required aria-required="true" minlength="10"></textarea>
+          <span>Message</span>
+        </div>
+        <button type="submit" aria-label="Send message">Send Message</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Cinematography SMAN 7 Manado. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Simple client-side validation and feedback for contact form
+    const form = document.getElementById('contact-form');
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      if(!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      // Here you can add logic to process the form data, e.g., send to an API or localStorage (not implemented)
+      alert('Thank you for your message! I will get back to you soon.');
+      form.reset();
+    });
+  </script>
+</body>
+</html>
+
